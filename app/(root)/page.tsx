@@ -9,7 +9,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center my-5">
         <Image src={"/hero.svg"} alt="Hero-Section" height={200} width={200} />
 
-        <h1 className=" z-20 text-6xl mt-2 margin-bottom: 1.5rem font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-rose-500 via-red-500 to-pink-500 dark:from-rose-400 dark:via-red-400 dark:to-pink-400 tracking-tight leading-[1.3] ">
+        <h1 className="z-20 text-6xl mt-2 mb-6 font-extrabold text-center bg-clip-text text-transparent bg-gradient-to-r from-[#3d8a0c] via-[#52ad14] to-[#3d8a0c] tracking-tight leading-[1.3]">
           Vibe Code With Intelligence
         </h1>
       </div>
