@@ -37,7 +37,7 @@ import {
   ResizablePanel,
   ResizableHandle,
 } from "@/components/ui/resizable";
-import PlaygroundEditor from "@/modules/playground/components/playground-editor";
+import {PlaygroundEditor} from "@/modules/playground/components/playground-editor";
 import { useWebContainer } from "@/modules/webcontainers/hooks/useWebContainer";
 import LoadingStep from "@/modules/playground/components/loader";
 import { findFilePath } from "@/modules/playground/lib";
@@ -388,7 +388,7 @@ const MainPlaygroundPage = () => {
                     <Button
                       size="sm"
                       variant="outline"
-                      onClick={()=>handleSave()}
+                      onClick={() => handleSave()}
                       disabled={!activeFile || !activeFile.hasUnsavedChanges}
                     >
                       <Save className="h-4 w-4" />
@@ -413,7 +413,7 @@ const MainPlaygroundPage = () => {
                 </Tooltip>
                 <ToggleAI
                   isEnabled={aiSuggestions.isEnabled}
-                  onToggle={aiSuggestions.toggleEnabled} 
+                  onToggle={aiSuggestions.toggleEnabled}
                   suggestionLoading={aiSuggestions.isLoading}
                 />
 
@@ -439,10 +439,10 @@ const MainPlaygroundPage = () => {
             </div>
           </header>
 
-          <div>
+          <div className="flex-1 flex flex-col min-h-0 h-[calc(100vh-4rem)]">
             {openFiles.length > 0 ? (
-              <div className="h-full flex flex-col">
-                <div className="border-b bg-muted/30">
+              <div className="flex-1 flex flex-col min-h-0 h-full">
+                <div className="border-b bg-muted/30 shrik-0">
                   <Tabs
                     value={activeFileId || ""}
                     onValueChange={setActiveFileId}
@@ -502,8 +502,20 @@ const MainPlaygroundPage = () => {
                       <PlaygroundEditor
                         activeFile={activeFile}
                         content={activeFile?.content || ""}
-                        onContentChange={(value) => 
-                          activeFileId && updateFileContent(activeFileId , value)
+                        onContentChange={(value) =>
+                          activeFileId && updateFileContent(activeFileId, value)
+                        }
+                        suggestion={aiSuggestions.suggestion}
+                        suggestionLoading={aiSuggestions.isLoading}
+                        suggestionPosition={aiSuggestions.position}
+                        onAcceptSuggestion={(editor, monaco) =>
+                          aiSuggestions.acceptSuggestion(editor, monaco)
+                        }
+                        onRejectSuggestion={(editor) =>
+                          aiSuggestions.rejectSuggestion(editor)
+                        }
+                        onTriggerSuggestion={(type, editor) =>
+                          aiSuggestions.fetchSuggestion(type)
                         }
                       />
                     </ResizablePanel>
