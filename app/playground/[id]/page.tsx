@@ -35,7 +35,7 @@ import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
   ResizablePanelGroup,
   ResizablePanel,
-  ResizableHandle,
+  ResizableHandle
 } from "@/components/ui/resizable";
 import {PlaygroundEditor} from "@/modules/playground/components/playground-editor";
 import { useWebContainer } from "@/modules/webcontainers/hooks/useWebContainer";
@@ -515,23 +515,55 @@ const MainPlaygroundPage = () => {
                           aiSuggestions.rejectSuggestion(editor)
                         }
                         onTriggerSuggestion={(type, editor) =>
-                          aiSuggestions.fetchSuggestion(type,editor)
+                          aiSuggestions.fetchSuggestion(type, editor)
                         }
                       />
                     </ResizablePanel>
                     {isPreviewVisible && (
                       <>
                         <ResizableHandle />
-                        <ResizablePanel defaultSize={50}>
-                          <WebContainerPreview
-                            templateData={templateData!}
-                            instance={instance}
-                            writeFileSync={writeFileSync}
-                            isLoading={containerLoading}
-                            error={containerError}
-                            serverUrl={serverUrl!}
-                            forceResetup={false}
-                          />
+                        <ResizablePanel
+                          defaultSize={50}
+                          className="h-full min-h-0"
+                        >
+                          {/* Nested Vertical Layout Group for the Preview and Terminal */}
+                          <ResizablePanelGroup
+                            direction="vertical"
+                            className="h-full w-full"
+                          >
+                            {/* Top Section: The Live Web Browser Preview */}
+                            <ResizablePanel
+                              defaultSize={60}
+                              minSize={20}
+                              className="bg-white relative"
+                            >
+                              <WebContainerPreview
+                                templateData={templateData!}
+                                instance={instance}
+                                writeFileSync={writeFileSync}
+                                isLoading={containerLoading}
+                                error={containerError}
+                                serverUrl={serverUrl!}
+                                forceResetup={false}
+                              />
+                            </ResizablePanel>
+
+                            {/* The Horizontal Splitter Drag Handle line */}
+                            <ResizableHandle withHandle />
+
+                            {/* Bottom Section: The Terminal Window Console */}
+                            <ResizablePanel
+                              defaultSize={40}
+                              minSize={15}
+                              className="bg-[#121212] flex flex-col"
+                            >
+                              {/* Your Terminal Component content goes here */}
+                              <div className="flex-1 overflow-hidden w-full">
+                                {/* If your terminal wrapper UI is built inside WebContainerPreview, 
+                you can move or split its terminal panel elements right here! */}
+                              </div>
+                            </ResizablePanel>
+                          </ResizablePanelGroup>
                         </ResizablePanel>
                       </>
                     )}
