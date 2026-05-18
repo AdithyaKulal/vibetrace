@@ -40,6 +40,7 @@ Follow these steps to run the project locally.
 - Node.js 18+ (Node 20 recommended)
 - npm, yarn or pnpm
 - A MongoDB instance (Atlas or local) and a connection string
+- Optional: Ollama local inference service for AI/chat/code-completion features
 
 ### 1) Clone the repository
 
@@ -157,8 +158,34 @@ npx prisma studio
 
 ### 5) Start any required local services
 
-- This project expects a running MongoDB (Atlas connection or local). No additional local AI or service daemons are required by default.
-- If you wire external AI providers, ensure you set provider API keys in environment variables and run their local services as directed.
+- This project expects a running MongoDB instance (Atlas connection or local).
+- For the built-in AI endpoints, run a local Ollama service and load the CodeLlama model.
+
+Ollama installation:
+
+```bash
+# macOS / Linux
+curl https://ollama.ai/install.sh | sh
+
+# Windows (PowerShell)
+iwr https://ollama.ai/install.ps1 -useb | iex
+```
+
+Download and run CodeLlama locally:
+
+```bash
+# Pull the CodeLlama model into Ollama(Use codellama in ollama docs)
+ollama pull codellama:latest or ollama run codellama
+
+# Start the local Ollama server
+ollama serve --port 11434
+```
+
+- `ollama pull codellama:latest` downloads the model into Ollama.
+- `ollama serve --port 11434` starts the local inference server.
+- The app expects Ollama at `http://localhost:11434` and uses `codellama:latest` for chat and code completion.
+- If you choose a different port or model, update the AI service URL/model name in `app/api/chat/route.ts` and `app/api/code-completion/route.ts`.
+- If you wire external AI providers instead, ensure you set provider API keys in environment variables and run their local services as directed.
 
 ### 6) Run the development server
 
