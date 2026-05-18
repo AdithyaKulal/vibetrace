@@ -199,7 +199,7 @@ Short descriptions:
 - `lib/` — Shared utilities and database client (`lib/db.ts` uses Prisma).
 - `prisma/schema.prisma` — Prisma models and MongoDB datasource.
 
-## Contributing
+## 🤝Contributing
 
 Thanks for considering contributing! Quick steps:
 
@@ -224,15 +224,3 @@ If you'd like, I can also:
 
 Let me know which of these you'd like next.
 
-##🤝 Contributing-
-   We value open-source contributions. To streamline the collaboration pipeline:
-
-Fork the VibeTrace repository.
-
-Branch your updates cleanly (git checkout -b feature/MyEpicFeature).
-
-Maintain styling consistency (TypeScript structure + explicit Tailwind tokens).
-
-Commit changes concisely (git commit -m 'feat: introduce dynamic workspace terminal context').
-
-Push changes and submit a formal Pull Request.
